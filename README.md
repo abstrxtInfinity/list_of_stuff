@@ -1,5 +1,5 @@
-# list_of_Stuff
+# List_of_Stuff
 
-Todo Application
+Todo List Application
 
 
