@@ -1,14 +1,15 @@
 import 'dart:ui';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class TaskTile extends StatelessWidget {
   final String title;
   final String id;
+  final String priority;
   final bool isDone;
   final Function checkBox;
   final Function delete;
-  final String priority;
 
   TaskTile(
       {this.isDone,
@@ -30,7 +31,7 @@ class TaskTile extends StatelessWidget {
             style: TextStyle(
               color: Colors.white,
               fontWeight: FontWeight.bold,
-                height: 1,
+              height: 1,
             ),
 
             textAlign: TextAlign.center,
@@ -38,11 +39,11 @@ class TaskTile extends StatelessWidget {
           backgroundColor: Colors.black,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.all(
-              Radius.circular(100),
+              Radius.circular(10),
             ),
           ),
-          behavior: SnackBarBehavior.floating,
-          width: 150,
+          // behavior: SnackBarBehavior.floating,
+          // width: 150,
           padding: EdgeInsets.all(0),
         ),
       );
@@ -95,7 +96,7 @@ class TaskTile extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    title,
+                    "${title}",
                     style: Theme.of(context).textTheme.subhead.copyWith(
                       decoration: isDone? TextDecoration.lineThrough: TextDecoration.none,
                     ),
@@ -110,7 +111,7 @@ class TaskTile extends StatelessWidget {
                     height: 5,
                   ),
                   Text(
-                    priority,
+                    "${priority}",
                     style: Theme.of(context).textTheme.subtitle,
                     maxLines: 1,
                     textAlign: TextAlign.start,
@@ -122,9 +123,9 @@ class TaskTile extends StatelessWidget {
               ),
             ),
             IconButton(
-              icon: Icon(Icons.delete),
+              icon: Icon(Icons.clear),
               onPressed: () => deleteTask(),
-              color: Colors.grey[300],
+              color: Color(0xffDC1111),
             )
           ],
         ),

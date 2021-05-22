@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gooey_carousel/gooey_carrousel.dart';
+
 import 'package:list_of_stuff/screens/loading_screen.dart';
 import 'package:list_of_stuff/widgets/introCard.dart';
 
@@ -8,13 +9,13 @@ class OnboardingScreen extends StatelessWidget {
     IntroCard(
       color: Colors.purple[600],
       heading: "Hi! 👋🏻",
-      info: "Welcome to Todoi",
+      info: "Welcome to Todoify",
       index: 0,
     ),
     IntroCard(
       color: Color(0xffD86547),
       heading: "Create Your Task List",
-      info: " Click on Add Task to create one ",
+      info: " Click on ➕ Create Task to add one ",
       index: 1,
       imageUrl: 'assets/images/createList.png',
       gifUrl: 'assets/images/create.png',
@@ -22,7 +23,7 @@ class OnboardingScreen extends StatelessWidget {
     IntroCard(
       color: Color(0xff195FBC),
       heading: "Strike Off Completed Tasks",
-      info: "You need the dopamine of completing the task",
+      info: "Everyone needs the dopamine after completing a task",
       index: 2,
       imageUrl: 'assets/images/checkbox.png',
       gifUrl: 'assets/images/doneTask.gif',
@@ -30,7 +31,7 @@ class OnboardingScreen extends StatelessWidget {
     IntroCard(
       color: Color(0xffBB4B77),
       heading: "Delete Tasks",
-      info: "Swipe to Delete the Task",
+      info: "Swipe to Delete the Task or Just tap the ❌ icon",
       index: 3,
       imageUrl: 'assets/images/deleteTask.png',
       gifUrl: 'assets/images/delete.gif',

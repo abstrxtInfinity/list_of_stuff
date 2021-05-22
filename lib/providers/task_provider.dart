@@ -1,13 +1,12 @@
 import 'package:flutter/foundation.dart';
+import 'package:hive/hive.dart';
 
 import 'package:list_of_stuff/models/TaskModel.dart';
 
 class TaskProvider with ChangeNotifier {
-  List<TaskModel> _tasks = [
-    TaskModel(title: 'Create New Task with the Button Below', id: DateTime.now().toString(), priority: 'HIGH'),
-    TaskModel(title: 'Strike off the Task', id: DateTime.now().toString(), priority: 'LOW'),
-    TaskModel(title: 'Swipe to delete or Tap the button', id: DateTime.now().toString(), priority: 'MEDIUM'),
+  final taskBox = Hive.box('tasks');
 
+  List<TaskModel> _tasks = [
 
   ];
 
@@ -20,16 +19,34 @@ class TaskProvider with ChangeNotifier {
   }
 
   void addTask(String title, String priority) {
-    TaskModel _t = TaskModel(title: title, id: DateTime.now().toString(),priority: priority);
+    TaskModel _t = TaskModel(
+        title: title, id: DateTime.now().toString(), priority: priority);
+    taskBox.add(_t);
     _tasks.add(_t);
     notifyListeners();
   }
-  void updateTask(TaskModel task) {
+
+  getData() {
+    _tasks.clear();
+    for (int i = 0; i < taskBox.length; i++) {
+      _tasks.add(taskBox.getAt(i));
+    }
+    return tasks;
+  }
+
+  void updateTask(TaskModel task, int index) {
     task.toggleDone();
+    taskBox.putAt(index, task);
     notifyListeners();
   }
-  void deleteTask(String id) async {
+
+  void deleteTask(int index, String id) async {
+    TaskModel _t = _tasks.firstWhere((element) => (element.id == id));
     _tasks.removeWhere((element) => (element.id == id));
+    Hive.box('tasks').deleteAt(index).catchError((err) => addTask(
+          _t.title,
+          _t.priority,
+        ));
     notifyListeners();
   }
 }

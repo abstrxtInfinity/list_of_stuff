@@ -1,18 +1,20 @@
 import 'dart:async';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:path_provider/path_provider.dart' as path_provider;
 
+import 'package:list_of_stuff/models/TaskModel.dart';
 import 'package:list_of_stuff/providers/task_provider.dart';
 import 'package:list_of_stuff/screens/loading_screen.dart';
 import 'package:list_of_stuff/screens/introPageScreen.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   final appDocumentDirectory = await path_provider.getApplicationDocumentsDirectory();
   Hive.init(appDocumentDirectory.path);
+  Hive.registerAdapter(TaskModelAdapter());
   runApp(MyApp());
 }
 
@@ -70,6 +72,7 @@ class _SplashScreenState extends State<SplashScreen>   {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     bool _seen = (prefs.getBool('seen')??false);
     if(_seen){
+
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(

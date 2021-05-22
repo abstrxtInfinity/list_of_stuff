@@ -1,22 +1,22 @@
-import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 import 'package:list_of_stuff/providers/task_provider.dart';
 import 'package:list_of_stuff/widgets/TaskTile.dart';
-import 'package:list_of_stuff/widgets/add_task_sheet.dart';
 import 'package:list_of_stuff/widgets/fab.dart';
+import 'package:list_of_stuff/widgets/add_task_sheet.dart';
 
 class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final tasks = Provider.of<TaskProvider>(context, listen: true);
-    final taskList = tasks.tasks;
-    final size = MediaQuery.of(context).size;
 
+    final tasks = Provider.of<TaskProvider>(context, listen: true);
+    final taskList = tasks.getData();
+    final size = MediaQuery.of(context).size;
     final now = DateTime.now();
     final date = DateFormat('dd-MM-yyyy').format(now);
+
     return Scaffold(
       backgroundColor: Theme.of(context).primaryColor,
       body: SafeArea(
@@ -49,7 +49,7 @@ class Home extends StatelessWidget {
                             style: Theme.of(context).textTheme.subtitle,
                           ),
                           Text(
-                            'Today\'s Tasks',
+                            'Your Tasks',
                             style: Theme.of(context).textTheme.title,
                           )
                         ],
@@ -96,10 +96,10 @@ class Home extends StatelessWidget {
                               isDone: taskList[index].isDone,
                               priority: taskList[index].priority,
                               checkBox: (bool checkBoxState) {
-                                tasks.updateTask(taskList[index]);
+                                tasks.updateTask(taskList[index],index);
                               },
                               delete: () =>
-                                  tasks.deleteTask(taskList[index].id),
+                                  tasks.deleteTask(index,taskList[index].id)
                             );
                           },
                           itemCount: taskList.length,
@@ -115,12 +115,11 @@ class Home extends StatelessWidget {
         textColor: Colors.white,
         onPressed: () {
           showModalBottomSheet(
-
             context: context,
             builder: (_) => AddTaskSheet(),
             backgroundColor: Colors.transparent,
             isDismissible: true,
-            isScrollControlled: false,
+            isScrollControlled: true,
           );
         },offset: Offset(0, 4),
       ),

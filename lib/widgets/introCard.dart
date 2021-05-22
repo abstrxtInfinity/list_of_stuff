@@ -33,8 +33,9 @@ class IntroCard extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Image(
-                image: AssetImage(imageUrl ?? ""), height: size.height * 0.3),
+            imageUrl==null
+                ? Container(height: size.height * 0.2)
+                : Image(image: AssetImage(imageUrl), height: size.height * 0.3),
             SizedBox(
               height: 60,
             ),
@@ -51,7 +52,9 @@ class IntroCard extends StatelessWidget {
               height: 20,
             ),
             //TODO: Add Gif for task
-            Image(image: AssetImage(gifUrl ?? ""), height: size.height * 0.2),
+            gifUrl==null
+                ? Container(height: size.height * 0)
+                : Image(image: AssetImage(gifUrl), height: size.height * 0.2),
 
             SizedBox(
               height: 20,
@@ -95,11 +98,18 @@ class IntroCard extends StatelessWidget {
                         },
                         child: Row(
                           children: [
-                            Text('Let\'s Begin!',style: TextStyle(
+                            Text(
+                              'Let\'s Begin!',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 16,
+                              ),
+                            ),
+                            Icon(
+                              Icons.arrow_forward_ios_rounded,
+                              size: 16,
                               color: Colors.white,
-                              fontSize: 16,
-                            ),),
-                            Icon(Icons.arrow_forward_ios_rounded,size: 16,color: Colors.white,),
+                            ),
                           ],
                         ),
                       )
